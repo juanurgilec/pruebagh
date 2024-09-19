@@ -53,4 +53,17 @@ jobs:
          # kubectl get deployment
          # kubectl describe deployment python-flask-app
          # kubectl describe pod --selector=app=python-flask-appS
-         
+      # Verificar que el despliegue es exitoso
+      - name: Test the Deployment
+        run: |
+          kubectl get pods
+          kubectl get svc python-flask-service
+      # Acceder al servicio en Minikube
+      - name: Access Service
+        run: |
+          nohup kubectl port-forward service/python-flask-service 5000:5000  > port-forward.log 2>&1 &
+          sleep 3s
+          RESPONSE=$(curl -s http://localhost:5000)
+          # Mostrar el resultado HTML
+          echo "Respuesta del servicio (HTML):"
+          echo "$RESPONSE"
