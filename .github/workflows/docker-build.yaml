@@ -1,0 +1,14 @@
+# .github/workflows/docker-build.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    braches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
